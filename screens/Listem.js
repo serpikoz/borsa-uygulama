@@ -1,15 +1,16 @@
 import React from "react";
 import { View, Text } from "react-native";
+
 import { MainLayout } from "./";
 
-const Piyasalar = () => {
+const Listem = () => {
   return (
     <MainLayout>
       <View>
-        <Text>Piyasalar</Text>
+        <Text>Listem</Text>
       </View>
     </MainLayout>
   );
 };
 
-export default Piyasalar;
+export default Listem;

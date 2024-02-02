@@ -1,14 +1,32 @@
 import React from "react";
-import { TouchableOpacity } from "react-native";
+import { Touchable, TouchableOpacity } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { connect } from "react-redux";
+import { setTradeModalVisibility } from "../stores/tab/tabActions";
 
 import { Piyasalar, Portfolio, Market, Profile } from "../screens";
 import { TabIcon } from "../components";
 import { COLORS, icons } from "../constants";
+import Listem from "../screens/Listem";
 
 const Tab = createBottomTabNavigator();
 
-const Tabs = () => {
+const TabBarCustomButton = ({ children, onPress }) => {
+  return (
+    <TouchableOpacity
+      style={{
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+      onPress={onPress}
+    >
+      {children}
+    </TouchableOpacity>
+  );
+};
+
+const Tabs = ({ setTradeModalVisibility, isTradeModalVisible }) => {
   return (
     <Tab.Navigator
       screenOptions={{
@@ -44,11 +62,17 @@ const Tabs = () => {
               />
             );
           },
+          tabBarButton: (props) => (
+            <TabBarCustomButton
+              {...props}
+              onPress={() => console.log("Portfolio Button")}
+            />
+          ),
         }}
       />
       <Tab.Screen
-        name="Takip Ettiklerim"
-        component={Piyasalar}
+        name="Listem"
+        component={Listem}
         options={{
           tabBarIcon: ({ focused }) => {
             return (
@@ -73,4 +97,21 @@ const Tabs = () => {
   );
 };
 
-export default Tabs;
+// export default Tabs;
+
+function mapStateToProps(state) {
+  return;
+  {
+    isTradeModalVisible: state.tabReducer.isTradeModalVisible;
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    setTradeModalVisibility: (isVisible) => {
+      return dispatch(setTradeModalVisibility(isVisible));
+    },
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Tabs);
