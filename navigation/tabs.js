@@ -62,10 +62,27 @@ const Tabs = ({ setTradeModalVisibility, isTradeModalVisible }) => {
               />
             );
           },
+        }}
+      />
+
+      <Tab.Screen
+        name="Trade"
+        component={Piyasalar}
+        options={{
+          tabBarIcon: ({ focused }) => {
+            return (
+              <TabIcon
+                focused={focused}
+                icon={icons.trade}
+                label="Transfer"
+                isTrade={true}
+              />
+            );
+          },
           tabBarButton: (props) => (
             <TabBarCustomButton
               {...props}
-              onPress={() => console.log("Portfolio Button")}
+              onPress={() => console.log("Trade Button")}
             />
           ),
         }}
